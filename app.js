@@ -12,21 +12,11 @@ const server = new RPCServer({
   strictMode: true,
 });
 
-server.auth((accept, reject, handshake) => {
-  const jwt = handshake.headers["authorization"];
-  console.log("Authenticating with token:", jwt);
-  accept({
-    token: jwt,
-    sessionId: "XYZ123",
-  });
-});
-
 server.on("client", async (client) => {
   console.log(`${client.identity} connected!`);
   bootNotification(client);
   authorize(client);
   heartbeat(client);
-
   notImplemented(client);
 });
 console.log("Server listening on port 3000");
