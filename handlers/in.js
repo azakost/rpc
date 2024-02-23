@@ -75,6 +75,17 @@ function meterValues(client) {
   });
 }
 
+function statusNotification(client) {
+  client.handle("StatusNotification", ({ params }) => {
+    sendMessageToBuddy(
+      `StatusNotification ${client.identity}:\n${JSON.stringify(params)}`
+    );
+    return {
+      status: "Accepted",
+    };
+  });
+}
+
 module.exports = {
   authorize,
   bootNotification,
@@ -82,4 +93,5 @@ module.exports = {
   startTransaction,
   stopTransaction,
   meterValues,
+  statusNotification,
 };

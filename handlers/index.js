@@ -5,6 +5,7 @@ const {
   startTransaction,
   stopTransaction,
   meterValues,
+  statusNotification,
 } = require("./in");
 
 const { remoteStartTransaction } = require("./out");
@@ -17,4 +18,5 @@ module.exports = {
   startTransaction,
   stopTransaction,
   meterValues,
+  statusNotification,
 };
