@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "node-telegram-bot-api": "^0.64.0",
     "ocpp-rpc": "^2.0.2"
   }
 }

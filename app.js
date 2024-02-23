@@ -1,9 +1,13 @@
 const {
   authorize,
   bootNotification,
-  notImplemented,
   heartbeat,
+  startTransaction,
+  stopTransaction,
+  meterValues,
 } = require("./handlers");
+
+const { buddy } = require("./telegram");
 
 const { RPCServer, createRPCError } = require("ocpp-rpc");
 
@@ -12,12 +16,40 @@ const server = new RPCServer({
   strictMode: true,
 });
 
+const allClients = new Map();
+
+buddy.on("message", async (msg) => {
+  console.log("Message received from buddy:", msg.text);
+  const client = allClients.values().next().value;
+
+  switch (msg.text) {
+    case "/remoteStartTransaction":
+      const res = await client.call("RemoteStartTransaction", {
+        idTag: "123",
+        connectorId: 1,
+      });
+      console.log("RemoteStartTransaction", res.status);
+      break;
+
+    case "/remoteStopTransaction":
+      client.call("RemoteStopTransaction", {
+        transactionId: 1,
+      });
+      break;
+
+    default:
+  }
+});
+
 server.on("client", async (client) => {
   console.log(`${client.identity} connected!`);
+  allClients.set(client.identity, client);
   bootNotification(client);
   authorize(client);
   heartbeat(client);
-  notImplemented(client);
+  startTransaction(client);
+  stopTransaction(client);
+  meterValues(client);
 });
 console.log("Server listening on port 3000");
 server.listen(3000);
