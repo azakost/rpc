@@ -86,6 +86,16 @@ function statusNotification(client) {
   });
 }
 
+function notImplemented(client) {
+  client.handle(({ method, params }) => {
+    sendMessageToBuddy(
+      `Server got ${method} from ${client.identity}:\n${JSON.stringify(params)}`
+    );
+    console.log(`Server got ${method} from ${client.identity}:`, params);
+    throw createRPCError("NotImplemented");
+  });
+}
+
 module.exports = {
   authorize,
   bootNotification,
@@ -94,4 +104,5 @@ module.exports = {
   stopTransaction,
   meterValues,
   statusNotification,
+  notImplemented,
 };

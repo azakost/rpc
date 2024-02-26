@@ -6,6 +6,7 @@ const {
   stopTransaction,
   meterValues,
   statusNotification,
+  notImplemented,
 } = require("./handlers");
 
 const { buddy } = require("./telegram");
@@ -52,6 +53,7 @@ server.on("client", async (client) => {
   stopTransaction(client);
   meterValues(client);
   statusNotification(client);
+  notImplemented(client);
 });
 console.log("Server listening on port 3000");
 server.listen(3000);
