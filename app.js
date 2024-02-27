@@ -39,9 +39,14 @@ buddy.on("message", async (msg) => {
       break;
 
     case "/stopcharge":
-      client.call("RemoteStopTransaction", {
-        transactionId: 1,
-      });
+      try {
+        client.call("RemoteStopTransaction", {
+          transactionId: 1,
+        });
+      } catch (error) {
+        console.error("RemoteStopTransaction", error);
+      }
+
       break;
 
     default:
