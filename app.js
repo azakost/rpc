@@ -29,7 +29,7 @@ buddy.on("message", async (msg) => {
       try {
         const res = await client.call("RemoteStartTransaction", {
           idTag: "123",
-          connectorId: 1,
+          connectorId: 2,
         });
         console.log("RemoteStartTransaction", res.status);
       } catch (error) {
