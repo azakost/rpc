@@ -26,11 +26,16 @@ buddy.on("message", async (msg) => {
 
   switch (msg.text) {
     case "/startcharge":
-      const res = await client.call("RemoteStartTransaction", {
-        idTag: "123",
-        connectorId: 0,
-      });
-      console.log("RemoteStartTransaction", res.status);
+      try {
+        const res = await client.call("RemoteStartTransaction", {
+          idTag: "123",
+          connectorId: 0,
+        });
+        console.log("RemoteStartTransaction", res.status);
+      } catch (error) {
+        console.error("RemoteStartTransaction", error);
+      }
+
       break;
 
     case "/stopcharge":
